@@ -1,0 +1,70 @@
+{
+    "bootloader":
+    {
+        "bootloader_area":
+        {
+            "address"           : "0x32000000",
+            "size"              : "0x1B000"
+        },
+
+        "ram":
+        {
+            "address"           : "0x34001000",
+            "size"              : "0xE000"
+        },
+
+        "shared_data":
+        {
+            "address"           : "0x34000000",
+            "size"              : "0x1000"
+        }
+    },
+
+    "application_1":
+    {
+        "slots":
+        {
+            "boot"              : "0x3201B000",
+            "upgrade"           : "0x3204D800",
+            "size"              : "0x1E800"
+        },
+
+        "ram":
+        {
+            "address"           : "0x34001000",
+            "size"              : "0xE000"
+        }
+    },
+
+    "application_2":
+    {
+        "slots":
+        {
+            "boot"              : "0x32039800",
+            "upgrade"           : "0x3206C000",
+            "size"              : "0xA000"
+        },
+
+        "ram":
+        {
+            "address"           : "0x00",
+            "size"              : "0x00"
+        }
+    },
+
+    "application_3":
+    {
+        "slots":
+        {
+            "boot"              : "0x32043800",
+            "upgrade"           : "0x32076000",
+            "size"              : "0xA000"
+        },
+
+        "ram":
+        {
+            "address"           : "0x00",
+            "size"              : "0x00"
+        }
+    }
+}

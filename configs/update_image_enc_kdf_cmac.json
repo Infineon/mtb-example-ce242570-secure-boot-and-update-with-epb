@@ -1,0 +1,190 @@
+{
+    "schema-version": 1.0,
+    "content":
+    [
+        {
+            "name": "Secure Image signing",
+            "description": "Signs and KDF-CMAC-encrypts the input file and converts it to the MCUboot format",
+            "enabled": true,
+            "commands":
+            [
+                {
+                    "command": "sign",
+                    "inputs":
+                    [
+                        {
+                            "description": "Secure application",
+                            "file": "../build/project_hex/main_cm33_s.hex",
+                            "signing-key": "{{ IMAGE_SIGNING_KEY }}",
+                            "header-size": "0x400",
+                            "slot-size": "{{ CYMEM_CM33_0_S_m33s_secondary_slot_SIZE }}",
+                            "fill-value": "0x00",
+                            "min-erase-size": "0x200",
+                            "signature-encoding": "{{ IMAGE_SIGNATURE_ENCODING }}",
+                            "pubkey-encoding": "der",
+                            "pubkey-format": "hash",
+                            "hex-address": "{{ CYMEM_CM33_0_S_m33s_secondary_slot_S_START }}",
+                            "overwrite-only": true,
+                            "image-version": "{{ IMAGE_VERSION_STRING }}",
+                            "align": "1",
+                            "boot-record": "MainCM33",
+                            "pad": true,
+                            "sha": "{{ IMAGE_SHA }}",
+                            "encryption-secret-key": "{{ IMAGE_ENCRYPTION_KEY }}",
+                            "encryption-key-role": "CMAC-KDF"
+                        }
+                    ],
+                    "outputs":
+                    [
+                        {
+                            "description": "SSS Signed secured application",
+                            "file": "../build/project_hex/main_cm33_s_ss.hex",
+                            "format": "ihex"
+                        }
+                    ],
+                    "extra_config":
+                    [
+                        {
+                            "project": "main_cm33_s",
+                            "debug_config_name": "main_cm33_s",
+                            "default": false,
+                            "build_dependency": "project"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "PPCA_0 Image signing",
+            "description": "Signs and KDF-CMAC-encrypts the input file and converts it to the MCUboot format",
+            "enabled": true,
+            "commands":
+            [
+                {
+                    "command": "sign",
+                    "inputs":
+                    [
+                        {
+                            "description": "Non-Secure application",
+                            "file": "../build/project_hex/ppca_cm33_0.hex",
+                            "signing-key": "{{ IMAGE_SIGNING_KEY }}",
+                            "header-size": "0x400",
+                            "slot-size": "{{ CYMEM_CM33_0_S_ppca0_secondary_slot_SIZE }}",
+                            "min-erase-size": "0x200",
+                            "signature-encoding": "{{ IMAGE_SIGNATURE_ENCODING }}",
+                            "pubkey-encoding": "der",
+                            "pubkey-format": "hash",
+                            "hex-address": "{{ CYMEM_CM33_0_S_ppca0_secondary_slot_S_START }}",
+                            "image-version": "{{ IMAGE_VERSION_STRING }}",
+                            "overwrite-only": true,
+                            "align": "1",
+                            "boot-record": "PPCACM330",
+                            "pad": true,
+                            "sha": "{{ IMAGE_SHA }}",
+                            "encryption-secret-key": "{{ IMAGE_ENCRYPTION_KEY }}",
+                            "encryption-key-role": "CMAC-KDF"
+                        }
+                    ],
+                    "outputs":
+                    [
+                        {
+                            "description": "SSS Signed secured application",
+                            "file": "../build/project_hex/ppca_cm33_0_ss.hex",
+                            "format": "ihex"
+                        }
+                    ],
+                    "extra_config":
+                    [
+                        {
+                            "project": "ppca_cm33_0",
+                            "debug_config_name": "ppca_cm33_0",
+                            "default": false,
+                            "build_dependency": "project"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "PPCA_1 Image signing",
+            "description": "Signs and KDF-CMAC-encrypts the input file and converts it to the MCUboot format",
+            "enabled": true,
+            "commands":
+            [
+                {
+                    "command": "sign",
+                    "inputs":
+                    [
+                        {
+                            "description": "Non-Secure application",
+                            "file": "../build/project_hex/ppca_cm33_1.hex",
+                            "signing-key": "{{ IMAGE_SIGNING_KEY }}",
+                            "header-size": "0x400",
+                            "slot-size": "{{ CYMEM_CM33_0_S_ppca1_secondary_slot_SIZE }}",
+                            "min-erase-size": "0x200",
+                            "signature-encoding": "{{ IMAGE_SIGNATURE_ENCODING }}",
+                            "pubkey-encoding": "der",
+                            "pubkey-format": "hash",
+                            "hex-address": "{{ CYMEM_CM33_0_S_ppca1_secondary_slot_S_START }}",
+                            "image-version": "{{ IMAGE_VERSION_STRING }}",
+                            "overwrite-only": true,
+                            "align": "1",
+                            "boot-record": "PPCACM331",
+                            "pad": true,
+                            "sha": "{{ IMAGE_SHA }}",
+                            "encryption-secret-key": "{{ IMAGE_ENCRYPTION_KEY }}",
+                            "encryption-key-role": "CMAC-KDF"
+                        }
+                    ],
+                    "outputs":
+                    [
+                        {
+                            "description": "SSS Signed secured application",
+                            "file": "../build/project_hex/ppca_cm33_1_ss.hex",
+                            "format": "ihex"
+                        }
+                    ],
+                    "extra_config":
+                    [
+                        {
+                            "project": "ppca_cm33_1",
+                            "debug_config_name": "ppca_cm33_1",
+                            "default": false,
+                            "build_dependency": "project"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "merge",
+            "enabled": true,
+            "commands":
+            [
+                {
+                    "command": "merge",
+                    "inputs":
+                    [
+                        {
+                            "file": "./../build/project_hex/main_cm33_s_ss.hex"
+                        },
+                        {
+                            "file": "./../build/project_hex/ppca_cm33_0_ss.hex"
+                        },
+                        {
+                            "file": "./../build/project_hex/ppca_cm33_1_ss.hex"
+                        }
+                    ],
+                    "outputs":
+                    [
+                        {
+                            "file": "./../build/app_combined.hex",
+                            "format": "ihex",
+                            "overlap": "ignore"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
